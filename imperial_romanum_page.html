@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imperial Romanum | Prime-Kelvin-Wiki</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000014;
+            color: #e0e0ff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #333366;
+        }
+
+        .wiki-nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #1a1a40, #2a2a50);
+            color: #66ccff;
+            border: 1px solid #444466;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(135deg, #2a2a50, #3a3a60);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #66ccff, #80bfff);
+            color: #000014;
+        }
+
+        h1 {
+            color: #cc4444;
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(204, 68, 68, 0.3);
+        }
+
+        h2 {
+            color: #ff6666;
+            border-bottom: 1px solid #4d1c1c;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            font-size: 24px;
+        }
+
+        h3 {
+            color: #ff9999;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .main-content {
+            background: rgba(26, 26, 64, 0.3);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #333366;
+            backdrop-filter: blur(10px);
+        }
+
+        .infobox {
+            background: linear-gradient(135deg, #401a1a, #502a2a);
+            border: 1px solid #664444;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            float: right;
+            width: 300px;
+            margin-left: 20px;
+        }
+
+        .infobox strong {
+            color: #ff6666;
+        }
+
+        .infobox-title {
+            color: #cc4444;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 1px solid #664444;
+            padding-bottom: 10px;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #4d1a1a, #5d2a2a);
+            border: 2px solid #cc4444;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #ff6666;
+        }
+
+        .warning-box strong {
+            color: #ff6666;
+        }
+
+        .timeline-item {
+            background: linear-gradient(135deg, #1a1a40, #2a2a50);
+            border: 1px solid #444466;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #cc4444;
+        }
+
+        .timeline-item strong {
+            color: #ff6666;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .faction-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .faction-item {
+            background: linear-gradient(135deg, #401a1a, #502a2a);
+            border: 1px solid #664444;
+            padding: 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .faction-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(204, 68, 68, 0.15);
+        }
+
+        .faction-item strong {
+            color: #ff6666;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            font-size: 0.9em;
+            color: #9999cc;
+            margin-top: 50px;
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #333366;
+        }
+
+        .search-box {
+            background: #1a1a40;
+            border: 1px solid #444466;
+            color: #e0e0ff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            width: 200px;
+        }
+
+        .search-box::placeholder {
+            color: #9999cc;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #ff4444;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .breadcrumb {
+            color: #9999cc;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: #66ccff;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: #80bfff;
+        }
+
+        .link {
+            color: #66ccff;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            color: #80bfff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>🌀 Prime-Kelvin-Wiki</h1>
+                <p style="color: #9999cc; font-size: 0.9em;">
+                    <span class="status-indicator"></span>
+                    Private Wiki Instance - Memory Fanon Hub
+                </p>
+            </div>
+            <div class="wiki-nav">
+                <input type="text" class="search-box" placeholder="Search wiki...">
+                <a href="#" class="nav-btn">Home</a>
+                <button class="nav-btn active">Articles</button>
+                <button class="nav-btn">Recent</button>
+                <button class="nav-btn">Settings</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="breadcrumb">
+                <a href="#">Home</a> → <a href="#">Articles</a> → <strong>Imperial Romanum</strong>
+            </div>
+
+            <div class="infobox">
+                <div class="infobox-title">Imperial Romanum</div>
+                <strong>Type:</strong> Interdimensional Empire<br><br>
+                <strong>Origin:</strong> Alternate Reality<br><br>
+                <strong>Status:</strong> Defeated (2341)<br><br>
+                <strong>Duration:</strong> 2333-2341<br><br>
+                <strong>Capital:</strong> New Romulus Prime<br><br>
+                <strong>Leader:</strong> Emperor Maximus<br><br>
+                <strong>Military:</strong> Praetorian Fleet<br><br>
+                <strong>Territory:</strong> Multiple Quadrants<br><br>
+                <strong>Remnants:</strong> <a href="#" class="link">Imperial Cult</a>
+            </div>
+
+            <h1>⚔️ Imperial Romanum</h1>
+            
+            <div class="warning-box">
+                <strong>⚠️ Classified Information</strong><br>
+                This article contains sensitive intelligence regarding the Imperial Romanum threat. Access restricted to Alliance Command personnel and authorized researchers.
+            </div>
+
+            <p style="font-size: 18px; margin-bottom: 30px;">
+                The <strong>Imperial Romanum</strong> was a powerful interdimensional empire that emerged from an alternate reality following the <a href="#" class="link">Enterprise-B Incident</a>. For eight years (2333-2341), this militaristic civilization posed the greatest existential threat to the Federation, forcing an unprecedented alliance between the Federation, Romulan Star Empire, and Klingon Empire.
+            </p>
+
+            <p>
+                Unlike the familiar Romulan Star Empire, the Imperial Romanum combined Roman military doctrine with advanced temporal technology, creating a formidable war machine capable of conquering entire star systems within days. Their emergence marked the beginning of the <strong>Imperial Romanum War</strong>, the longest interdimensional conflict in recorded history.
+            </p>
+
+            <h2>🏛️ Government & Society</h2>
+            <p>
+                The Imperial Romanum operated under a strict imperial hierarchy, with <strong>Emperor Maximus</strong> at its apex. Society was divided into distinct castes: the ruling Patrician class, the military Praetorian orders, and the conquered Plebeian populations. Unlike the Romulan Star Empire's secretive Tal Shiar, the Romanum employed the <strong>Vigiles Temporis</strong> (Time Wardens) as their primary intelligence and enforcement organization.
+            </p>
+
+            <p>
+                The empire's philosophy centered on the concept of <em>"Imperium Infinitus"</em> – the belief that all realities and dimensions were destined to fall under Romanum rule. This drove their relentless expansion across multiple quantum barriers, making them a multiversal threat unlike any previously encountered.
+            </p>
+
+            <h2>⚡ Technology & Warfare</h2>
+            
+            <h3>Temporal Weapons</h3>
+            <p>
+                The Romanum's most devastating capability was their mastery of <strong>temporal warfare</strong>. Their Praetorian Fleet could deploy <em>chrono-torpedoes</em> that would age enemy starships to dust within seconds, or use <em>causality disruptors</em> to erase entire battles from the timeline. These weapons made conventional fleet engagements nearly impossible until the Alliance developed <a href="#" class="link">temporal shielding</a> technology.
+            </p>
+
+            <h3>Praetorian Fleet</h3>
+            <p>
+                The backbone of Romanum military power, the Praetorian Fleet consisted of massive dreadnought-class vessels called <strong>Centurion Battleships</strong>. Each ship was equipped with:
+            </p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Quantum singularity cores (triple-redundant)</li>
+                <li>Temporal displacement drives</li>
+                <li>Reality anchor systems</li>
+                <li>Dimensional breach weaponry</li>
+            </ul>
+
+            <h2>📅 Timeline of Major Events</h2>
+            
+            <div class="timeline-item">
+                <strong>2333 - First Incursion</strong>
+                Imperial Romanum forces breach dimensional barriers near the Neutral Zone. First contact results in the destruction of three Federation outposts.
+            </div>
+
+            <div class="timeline-item">
+                <strong>2334 - Battle of Khitomer</strong>
+                Romanum forces attempt to conquer the Klingon homeworld. The devastating defeat of the Klingon Defense Force forces Chancellor Martok to seek Federation alliance.
+            </div>
+
+            <div class="timeline-item">
+                <strong>2335 - Romulan Betrayal</strong>
+                The Romulan Star Empire secretly negotiates with the Romanum, believing they can control their alternate-reality counterparts. The plan backfires catastrophically.
+            </div>
+
+            <div class="timeline-item">
+                <strong>2337 - Formation of The Alliance</strong>
+                Federation, Klingon Empire, and Romulan Star Empire form unprecedented military alliance. <a href="#" class="link">Captain Jake Kirk</a> appointed as joint fleet commander.
+            </div>
+
+            <div class="timeline-item">
+                <strong>2341 - Final Battle</strong>
+                The <a href="#" class="link">USS Enterprise-E</a> leads Alliance forces in the decisive battle at the dimensional nexus. Emperor Maximus is defeated, but the Romanum homeworld escapes to the Gamma Quadrant.
+            </div>
+
+            <h2>🌌 Factions & Remnants</h2>
+            
+            <div class="faction-grid">
+                <div class="faction-item">
+                    <strong>Imperial Cult (Gamma Quadrant)</strong>
+                    Surviving Romanum loyalists who established a religious movement around Emperor Maximus's teachings. They continue to pose a threat to Dominion space.
+                </div>
+                <div class="faction-item">
+                    <strong>Temporal Refugees</strong>
+                    Romanum civilians who were displaced during the war's final battles. Many have been relocated to neutral worlds under Alliance protection.
+                </div>
+                <div class="faction-item">
+                    <strong>Praetorian Remnants</strong>
+                    Scattered military units that continue guerrilla operations across the Beta Quadrant. Most have been hunted down by Alliance forces.
+                </div>
+            </div>
+
+            <h2>🔬 Legacy & Impact</h2>
+            <p>
+                The Imperial Romanum War fundamentally changed the political landscape of the Alpha and Beta Quadrants. The unprecedented cooperation between traditional enemies laid the groundwork for the modern Alliance structure. Technologies developed during the conflict, including the <a href="#" class="link">Zero Drive</a> and temporal shielding, revolutionized starship design and defense capabilities.
+            </p>
+
+            <p>
+                The war also had profound philosophical implications. The existence of alternate realities where familiar civilizations had taken drastically different paths forced a reevaluation of concepts like destiny, free will, and the nature of parallel evolution. Starfleet's Department of Temporal Investigations was expanded significantly to monitor for future interdimensional threats.
+            </p>
+
+            <div class="warning-box">
+                <strong>Current Status:</strong> While the main Romanum threat has been neutralized, Alliance Intelligence continues to monitor for signs of Romanum revival. The <a href="#" class="link">Imperial Cult</a> in the Gamma Quadrant remains under observation, and several temporal anomalies in the former Romanum territories suggest possible survivor settlements.
+            </div>
+
+        </div>
+
+        <div class="footer">
+            Memory-Kelvin Prime is a fanon archive. Star Trek and related marks are owned by CBS/Paramount. This is a non-commercial project for creative exploration.
+            <br><br>
+            <small>Private Wiki Instance • Last Updated: Stardate 87832.4 • Articles: 8 • Contributors: 1</small>
+        </div>
+    </div>
+
+    <script>
+        // Simple navigation functionality
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Search functionality placeholder
+        document.querySelector('.search-box').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                alert('Search functionality would be implemented here. Searching for: ' + this.value);
+            }
+        });
+    </script>
+</body>
+</html>
